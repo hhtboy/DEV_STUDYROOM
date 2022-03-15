@@ -26,16 +26,20 @@ public class PlayerMovement : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
+        
+
         if(inputX<0)
         {
-            myRenderer.flipX = true;
+            //myRenderer.flipX = true;
+            transform.eulerAngles = new Vector3(0, 180, 0);
         }
         else if(inputX>0)
         {
-            myRenderer.flipX = false;
+            //myRenderer.flipX = false;
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        
 
+        inputX = Mathf.Abs(inputX);
         Vector2 velocity = new Vector2(inputX,inputY);
         velocity = velocity.normalized;
 
