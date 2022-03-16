@@ -10,9 +10,7 @@ public class PlayerAttack : PlayerMovement
     public float curtime;
     public GameObject player;
 
-    private Vector3 shootDir;
-
-    private Vector3 bulletDir;
+    private float bulletDir;
 
     // Start is called before the first frame update
     void Start()
@@ -26,16 +24,15 @@ public class PlayerAttack : PlayerMovement
     {
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
-        
-        shootDir = player.GetComponent<PlayerMovement>().velocity;
-        
-        if(curtime<=0)
+
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, bulletDir));
+        SetBulletDir();
+
+        if (curtime<=0)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                SetBulletDir();
                 Instantiate(bullet,pos.position,transform.rotation);
-                bullet.transform.Rotate(bulletDir);
             }
             curtime = cooltime;
         }
@@ -44,8 +41,11 @@ public class PlayerAttack : PlayerMovement
 
     void SetBulletDir()
     {
+        if((inputX!=0)||(inputY!=0))
+        {
+            bulletDir = Mathf.Atan2(inputY, inputX) * Mathf.Rad2Deg;
+        }
 
-        bulletDir = new Vector3(inputX,inputY,0);
-                Debug.Log(bulletDir);
+        Debug.Log(bulletDir);
     }
 }
