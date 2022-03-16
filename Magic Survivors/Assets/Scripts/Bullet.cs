@@ -27,6 +27,7 @@ public class Bullet : MonoBehaviour
 
     }
 
+    
     void DestroyBullet()
     {
         Destroy(gameObject);

@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
-    
+    public Vector3 velocity;
+    public float inputX;
+    public float inputY;
     private SpriteRenderer myRenderer;
 
     // Start is called before the first frame update
@@ -23,8 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
+        inputX = Input.GetAxisRaw("Horizontal");
+        inputY = Input.GetAxisRaw("Vertical");
 
         
 
@@ -40,8 +42,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         inputX = Mathf.Abs(inputX);
-        Vector2 velocity = new Vector2(inputX,inputY);
+        velocity = new Vector3(inputX,inputY,0);
         velocity = velocity.normalized;
+        
 
         transform.Translate(velocity*moveSpeed*Time.deltaTime);
     }
