@@ -32,16 +32,16 @@ public class PlayerMovement : MonoBehaviour
 
         if(inputX<0)
         {
-            //myRenderer.flipX = true;
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            myRenderer.flipX = true;
+            //transform.eulerAngles = new Vector3(0, 180, 0);
         }
         else if(inputX>0)
         {
-            //myRenderer.flipX = false;
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            myRenderer.flipX = false;
+            //transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
-        inputX = Mathf.Abs(inputX);
+        //inputX = Mathf.Abs(inputX);
         velocity = new Vector3(inputX,inputY,0);
         velocity = velocity.normalized;
         
