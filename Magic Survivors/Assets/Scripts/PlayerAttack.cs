@@ -18,7 +18,7 @@ public class PlayerAttack : PlayerMovement
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        
+        StartCoroutine(AutoAttack());
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class PlayerAttack : PlayerMovement
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
-                SetBulletDir();
+                bulletDir = new Vector3(inputX,inputY,0);
                 Instantiate(bullet,pos.position,transform.rotation);
                 bullet.transform.Rotate(bulletDir);
             }
@@ -42,10 +42,16 @@ public class PlayerAttack : PlayerMovement
         curtime -= Time.deltaTime;
     }
 
-    void SetBulletDir()
-    {
 
-        bulletDir = new Vector3(inputX,inputY,0);
-                Debug.Log(bulletDir);
+
+    IEnumerator AutoAttack()
+    {
+        while(true)
+        {
+            Instantiate(bullet,pos.position,transform.rotation);
+            bullet.transform.Rotate(bulletDir);
+            yield return new WaitForSeconds(1f);
+
+        }
     }
 }
