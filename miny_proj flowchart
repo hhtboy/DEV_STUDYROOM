@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-03-24T03:38:09.952Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Safari/605.1.15" etag="73FbGv7pnlP0USZDB-VQ" version="17.2.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-03-24T03:54:17.815Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Safari/605.1.15" etag="AECh7dh2Foq6BTSuoXv2" version="17.2.1" type="github">
   <diagram name="Page-1" id="74e2e168-ea6b-b213-b513-2b3c1d86103e">
     <mxGraphModel dx="946" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1700" background="none" math="0" shadow="0">
       <root>
@@ -129,7 +129,7 @@
         <mxCell id="ApzNX1BouA2ljJ4Kkchq-60" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ApzNX1BouA2ljJ4Kkchq-48" target="ApzNX1BouA2ljJ4Kkchq-59">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ApzNX1BouA2ljJ4Kkchq-48" value="실로폰을 누르면&lt;br&gt;UI가 뜸" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="ApzNX1BouA2ljJ4Kkchq-48" value="UI창으로 볼 수 있고&lt;br&gt;악보는 인벤토리에서&amp;nbsp;&lt;br&gt;꺼냄" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="910" y="270" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ApzNX1BouA2ljJ4Kkchq-64" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ApzNX1BouA2ljJ4Kkchq-50" target="ApzNX1BouA2ljJ4Kkchq-59">
@@ -180,8 +180,22 @@
             </Array>
           </mxGeometry>
         </mxCell>
+        <mxCell id="ApzNX1BouA2ljJ4Kkchq-83" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ApzNX1BouA2ljJ4Kkchq-79">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="970" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="ApzNX1BouA2ljJ4Kkchq-79" value="퀴즈가 풀리면서&amp;nbsp;&lt;br&gt;실로폰 밑에 서랍이 열림&lt;br&gt;실로폰에 재접근 제한" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="910" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ApzNX1BouA2ljJ4Kkchq-86" value="" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ApzNX1BouA2ljJ4Kkchq-84" target="ApzNX1BouA2ljJ4Kkchq-85">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ApzNX1BouA2ljJ4Kkchq-84" value="퀴즈가 다 풀림" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="640" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ApzNX1BouA2ljJ4Kkchq-85" value="분기점으로 넘어가고&lt;br&gt;Scene Change" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="910" y="750" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
