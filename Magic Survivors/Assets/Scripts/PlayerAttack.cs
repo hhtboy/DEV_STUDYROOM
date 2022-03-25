@@ -23,7 +23,7 @@ public class PlayerAttack : PlayerMovement
         spawnVector = new Vector3(0, 0, 0);
         StartCoroutine(AutoAttack());
         StartCoroutine(EnemySpawn());
-
+        StartCoroutine(Missile());
     }
 
     // Update is called once per frame
@@ -69,6 +69,16 @@ public class PlayerAttack : PlayerMovement
             var Enemy = ObjectPool.GetObject();
 
             yield return new WaitForSeconds(0.5f-shortTime);
+        }
+    }
+
+    IEnumerator Missile()
+    {
+        while(true)
+        {
+            var missile = MisslePool.GetObject();
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
