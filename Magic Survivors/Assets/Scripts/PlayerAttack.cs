@@ -32,7 +32,7 @@ public class PlayerAttack : PlayerMovement
         inputX = Input.GetAxisRaw("Horizontal");
         inputY = Input.GetAxisRaw("Vertical");
         
-
+        
         if((inputX!=0)||(inputY!=0))
         {
             bulletDir = Mathf.Atan2(inputY, inputX) * Mathf.Rad2Deg;
@@ -66,10 +66,6 @@ public class PlayerAttack : PlayerMovement
     {
         while(true)
         {
-            float _spawnAngle = Random.Range(0, 360);
-            spawnVector.x = Mathf.Cos(_spawnAngle);
-            spawnVector.y = Mathf.Sin(_spawnAngle);
-            //Instantiate(enemy, pos.position + 15 * spawnVector, Quaternion.Euler(Vector3.zero));
             var Enemy = ObjectPool.GetObject();
 
             yield return new WaitForSeconds(0.5f-shortTime);

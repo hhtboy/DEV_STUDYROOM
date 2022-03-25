@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        
         moveSpeed = 2f;
     }
 
@@ -20,5 +21,18 @@ public class Enemy : MonoBehaviour
         Vector3 direction = player.transform.position - transform.position;
         direction = direction.normalized;
         transform.Translate(direction * moveSpeed *Time.deltaTime);
+    }
+
+    public void DestroyEnemy()
+    {
+        ObjectPool.ReturnObj(this);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Bullet")
+        {
+            DestroyEnemy();
+        }
     }
 }

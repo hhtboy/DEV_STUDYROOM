@@ -6,6 +6,9 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool Instance;
 
+    private Vector3 spawnVector;
+    public GameObject player;
+
     [SerializeField] private GameObject poolingObjectPrefab;
 
     Queue<Enemy> poolingObjectQueue= new Queue<Enemy>();
@@ -13,12 +16,16 @@ public class ObjectPool : MonoBehaviour
     void Awake() 
     {
         Instance = this;
-        Initialize(20);
+        Initialize(30);
+    }
+    void Start() 
+    {
+        spawnVector = new Vector3(0, 0, 0);
     }
 
     private void Initialize(int initCount)
     {
-        for (int i = 0; i < initCount;i++)
+        for (int i = 0; i < initCount ; i++)
         {
             poolingObjectQueue.Enqueue(CreateNewObject());
         }
@@ -41,6 +48,7 @@ public class ObjectPool : MonoBehaviour
             var obj = Instance.poolingObjectQueue.Dequeue();
             obj.transform.SetParent(null);
             obj.gameObject.SetActive(true);
+            obj.transform.position = Instance.GetRandomPos();
             return obj;
         }
         else
@@ -48,6 +56,7 @@ public class ObjectPool : MonoBehaviour
             var newObj = Instance.CreateNewObject();
             newObj.gameObject.SetActive(false);
             newObj.transform.SetParent(Instance.transform);
+            newObj.transform.position = Instance.GetRandomPos();
             return newObj;
         }
     }
@@ -58,6 +67,18 @@ public class ObjectPool : MonoBehaviour
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
         Instance.poolingObjectQueue.Enqueue(obj);
+    }
+
+    Vector3 GetRandomPos()
+    {
+        Vector3 _playerPos = player.transform.position;
+        float _spawnAngle = Random.Range(0, 360);
+        spawnVector.x = Mathf.Cos(_spawnAngle);
+        spawnVector.y = Mathf.Sin(_spawnAngle);
+        spawnVector = spawnVector * 15 + _playerPos;
+
+        return spawnVector;
+
     }
 
 }
