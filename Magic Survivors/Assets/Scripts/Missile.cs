@@ -6,17 +6,35 @@ public class Missile : MonoBehaviour
 {
 
     private Rigidbody2D rigid;
-    private Vector2 defaultDir;
+
+
+    [SerializeField]  private Vector2 defaultDir;
+    private float boostTime;
+    [SerializeField] private float velocity;
+
+
+    [SerializeField]
+    float zAngle;
 
     private void Start()
     {
         transform.Rotate(GetRandomRot());
         rigid = GetComponent<Rigidbody2D>();
-        defaultDir = new Vector2(Mathf.Cos(transform.rotation.eulerAngles.z), Mathf.Sin(transform.rotation.eulerAngles.z));
+        boostTime = 1.0f;
+        velocity = 10f;
 
-        Boost();
-        
+        zAngle = transform.rotation.eulerAngles.z;
+
+        if(zAngle>180)
+        {
+            zAngle -= 360;
+        }
+
+        defaultDir = new Vector2(Mathf.Cos(zAngle*Mathf.Deg2Rad), Mathf.Sin(zAngle * Mathf.Deg2Rad));
+        StartCoroutine(Boost());
+
     }
+
 
     // Start is called before the first frame update
     public void DestroyEnemy()
@@ -24,9 +42,20 @@ public class Missile : MonoBehaviour
         MisslePool.ReturnObj(this);
     }
 
-    void Boost()
+    IEnumerator Boost()
     {
-        rigid.AddForce(defaultDir, ForceMode2D.Impulse);
+        rigid.velocity = defaultDir * velocity;
+        while (boostTime>=0)
+        {
+            rigid.velocity = rigid.velocity - defaultDir * velocity * 0.1f;
+            boostTime -= 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        
+        //transform.Translate(Vector3.right*Time.deltaTime);
+
+        
     }
 
     Vector3 GetRandomRot()
