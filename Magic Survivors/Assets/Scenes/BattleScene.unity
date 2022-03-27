@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2071055387}
-  poolingObjectPrefab: {fileID: 4782394212106844342, guid: e20f65fbc3bd040fbac971df0e508d6f,
+  poolingObjectPrefab: {fileID: 7216136272811871456, guid: 879188781e6f0d74f9e9e07b076b6fce,
     type: 3}
 --- !u!1 &1416945297
 GameObject:
