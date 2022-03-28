@@ -26,7 +26,7 @@ public class Missile : MonoBehaviour
         transform.Rotate(GetRandomRot());
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
-        velocity = 10f;
+        velocity = 5f;
         layer = 0;
 
         zAngle = transform.rotation.eulerAngles.z;
@@ -57,12 +57,14 @@ public class Missile : MonoBehaviour
             if (enemyArr.Length > 0)
             {
                 isEnemyNear = true;
+                isSearching = true;
                 target = enemyArr[Random.Range(0, enemyArr.Length)].transform;
-                Debug.Log("ÃßÀû");
+                Debug.Log(target.name);
             }
             else
             {
                 isEnemyNear = false;
+                Debug.Log("else");
             }
         }
             

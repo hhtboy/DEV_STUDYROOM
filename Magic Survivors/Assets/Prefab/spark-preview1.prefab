@@ -117,6 +117,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298f0dab3118a3a4e9e7c08e74f91ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  defaultDir: {x: 0, y: 0}
+  velocity: 0
+  target: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 1024
+  zAngle: 0
 --- !u!50 &3616475129642337655
 Rigidbody2D:
   serializedVersion: 4
