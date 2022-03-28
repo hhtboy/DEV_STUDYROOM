@@ -19,7 +19,7 @@ public class PlayerAttack : PlayerMovement
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        shortTime = 0.05f;
+        shortTime = 0f;
         spawnVector = new Vector3(0, 0, 0);
         StartCoroutine(AutoAttack());
         StartCoroutine(EnemySpawn());
@@ -66,9 +66,13 @@ public class PlayerAttack : PlayerMovement
     {
         while(true)
         {
+            if(shortTime < 0.4f)
+            {
+                shortTime += 0.1f;
+            }
             var Enemy = ObjectPool.GetObject();
-
-            yield return new WaitForSeconds(0.5f-shortTime);
+            
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -78,7 +82,7 @@ public class PlayerAttack : PlayerMovement
         {
             var missile = MisslePool.GetObject();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

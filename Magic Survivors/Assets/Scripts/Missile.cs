@@ -15,8 +15,8 @@ public class Missile : MonoBehaviour
     [SerializeField] private float velocity;
     [SerializeField] Transform target;
     [SerializeField] LayerMask layer;
-    private bool isSearching;
-    private bool isEnemyNear;
+    private float curSpeed;
+    private float maxSpeed;
 
     [SerializeField]
     float zAngle;
@@ -27,7 +27,8 @@ public class Missile : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
         velocity = 5f;
-        layer = 0;
+        curSpeed = 0f;
+        maxSpeed = 10f;
 
         zAngle = transform.rotation.eulerAngles.z;
 
@@ -42,53 +43,64 @@ public class Missile : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        
+        if(target== null)
+        {
+            DestroyMissile();
+        }
+        else if (!target.gameObject.activeSelf)
+        {
+            //DestroyMissile();
+            SearchEnemy();
+        }
+        else if ((target != null) || target.gameObject.activeSelf)
+        {
+            if (curSpeed < maxSpeed)
+            {
+                curSpeed += maxSpeed * Time.deltaTime;
+            }
 
-    // Start is called before the first frame update
-    public void DestroyEnemy()
+            transform.position += transform.right * curSpeed * Time.deltaTime;
+
+            Vector3 direction = (target.position - transform.position).normalized;
+            transform.right = Vector3.Lerp(transform.right, direction, 0.25f);
+        }
+        else if(target == null)
+        {
+            SearchEnemy();
+        }
+        
+
+    }
+
+
+    public void DestroyMissile()
     {
         MisslePool.ReturnObj(this);
     }
 
     void SearchEnemy()
     {
-        if(!isSearching)
+        Collider2D[] enemyArr = Physics2D.OverlapCircleAll(transform.position, 8f, layer);
+        if (enemyArr.Length > 0)
         {
-            Collider2D[] enemyArr = Physics2D.OverlapCircleAll(player.transform.position, 100f, layer);
-            if (enemyArr.Length > 0)
-            {
-                isEnemyNear = true;
-                isSearching = true;
-                target = enemyArr[Random.Range(0, enemyArr.Length)].transform;
-                Debug.Log(target.name);
-            }
-            else
-            {
-                isEnemyNear = false;
-                Debug.Log("else");
-            }
+            target = enemyArr[Random.Range(0, enemyArr.Length)].transform;
         }
-            
     }
+
+    
 
     IEnumerator Boost()
     {
+        SearchEnemy();
         rigid.velocity = defaultDir * velocity;
         for (int i=0;i<5;i++)
         {
             rigid.velocity = rigid.velocity - defaultDir * velocity * 0.2f;
-            SearchEnemy();
-            if(isEnemyNear)
-            {
-                rigid.velocity = target.position - transform.position;
-            }
             yield return new WaitForSeconds(0.1f);
         }
-
-        
-        //rigid.velocity = player.transform.position - transform.position;
-        //transform.Translate(Vector3.right*Time.deltaTime);
-
-        
     }
 
     Vector3 GetRandomRot()
@@ -97,6 +109,16 @@ public class Missile : MonoBehaviour
         Vector3 _randomRot = new Vector3(0, 0, _spawnAngle);
 
         return _randomRot;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.transform.name);
+        if (collision.transform.CompareTag("Enemy"))
+        {
+            MisslePool.ReturnObj(this);
+        }
     }
 
 }

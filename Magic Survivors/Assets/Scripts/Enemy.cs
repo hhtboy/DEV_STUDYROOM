@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
-    
+{    
     private GameObject player;
-    private float moveSpeed;
+    public float moveSpeed;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        
-        moveSpeed = 2f;
     }
 
     // Update is called once per frame
@@ -30,7 +27,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Bullet")
+        if ((other.tag == "Bullet")||(other.tag =="Missile"))
         {
             DestroyEnemy();
         }
