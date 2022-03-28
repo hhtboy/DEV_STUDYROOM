@@ -7,6 +7,8 @@ public class Missile : MonoBehaviour
 
     public GameObject player;
 
+    public bool isBoostOn;
+
     private Rigidbody2D rigid;
 
 
@@ -17,6 +19,9 @@ public class Missile : MonoBehaviour
     [SerializeField] LayerMask layer;
     private float curSpeed;
     private float maxSpeed;
+    private bool isStraight;
+    
+    private float destroyTime;
 
     [SerializeField]
     float zAngle;
@@ -26,9 +31,12 @@ public class Missile : MonoBehaviour
         transform.Rotate(GetRandomRot());
         rigid = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
-        velocity = 5f;
+        velocity = 7f;
         curSpeed = 0f;
-        maxSpeed = 10f;
+        maxSpeed = 7f;
+        isStraight = false;
+        isBoostOn = false;
+        destroyTime = 0f;
 
         zAngle = transform.rotation.eulerAngles.z;
 
@@ -45,31 +53,38 @@ public class Missile : MonoBehaviour
 
     private void Update()
     {
-        
-        if(target== null)
+        if (!isStraight)
         {
-            DestroyMissile();
-        }
-        else if (!target.gameObject.activeSelf)
-        {
-            //DestroyMissile();
-            SearchEnemy();
-        }
-        else if ((target != null) || target.gameObject.activeSelf)
-        {
-            if (curSpeed < maxSpeed)
+            if (target == null) //타겟이 없으면 생성 직후 파괴
             {
-                curSpeed += maxSpeed * Time.deltaTime;
+                DestroyMissile();
+                SearchEnemy();
             }
+            else if (target.gameObject.activeSelf) //활성화 상태일 때 (큐 밖에 있을 때)
+            {
+                if(isBoostOn)
+                {
+                    StartCoroutine(Boost());
+                }
+                if (curSpeed < maxSpeed)
+                {
+                    curSpeed += maxSpeed * Time.deltaTime;
+                }
 
-            transform.position += transform.right * curSpeed * Time.deltaTime;
+                transform.position += transform.right * curSpeed * Time.deltaTime;
 
-            Vector3 direction = (target.position - transform.position).normalized;
-            transform.right = Vector3.Lerp(transform.right, direction, 0.25f);
+                Vector3 direction = (target.position - transform.position).normalized;
+                transform.right = Vector3.Lerp(transform.right, direction, 0.25f);
+            }
+            else if (!target.gameObject.activeSelf)
+            {
+                isStraight = true;
+            }
         }
-        else if(target == null)
+        else //타겟이 큐 안으로 들어가서 비활성화 되면 공격을 쭉 진행하고 3초 뒤 ReturnObj
         {
-            SearchEnemy();
+            Debug.Log("straight");
+            Straight();
         }
         
 
@@ -78,6 +93,7 @@ public class Missile : MonoBehaviour
 
     public void DestroyMissile()
     {
+        isBoostOn = true;
         MisslePool.ReturnObj(this);
     }
 
@@ -90,16 +106,35 @@ public class Missile : MonoBehaviour
         }
     }
 
+    void Straight()
+    {
+        if(destroyTime >= 15.0f)
+        {
+            isStraight = false;
+            destroyTime = 0f;
+            target = null;
+            MisslePool.ReturnObj(this);
+        }
+        else
+        {
+            destroyTime += 0.02f;
+            transform.position += transform.right * curSpeed * Time.deltaTime;
+        }
+        
+    }
+
     
 
-    IEnumerator Boost()
+    public IEnumerator Boost()
     {
+        Debug.Log("부스터 사용 가능");
+        isBoostOn = false;
         SearchEnemy();
         rigid.velocity = defaultDir * velocity;
         for (int i=0;i<5;i++)
         {
             rigid.velocity = rigid.velocity - defaultDir * velocity * 0.2f;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -117,6 +152,7 @@ public class Missile : MonoBehaviour
         Debug.Log(collision.transform.name);
         if (collision.transform.CompareTag("Enemy"))
         {
+            target = null;
             MisslePool.ReturnObj(this);
         }
     }

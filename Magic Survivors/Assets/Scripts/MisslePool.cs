@@ -16,7 +16,7 @@ public class MisslePool : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Initialize(30);
+        Initialize(2);
     }
 
     private void Start()
