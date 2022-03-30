@@ -8,12 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 velocity;
     public float inputX;
     public float inputY;
+    public int curHp;
+
+    private int maxHp;
     private SpriteRenderer myRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         myRenderer = GetComponent<SpriteRenderer>();
+        maxHp = 100;
+        curHp = 100;
     }
 
     // Update is called once per frame
@@ -47,5 +52,12 @@ public class PlayerMovement : MonoBehaviour
         
 
         transform.Translate(velocity*moveSpeed*Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Enemy"))
+        {
+            curHp = curHp - 10;
+        }
     }
 }
