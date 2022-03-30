@@ -9,15 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public float inputX;
     public float inputY;
     public int curHp;
-
-    private int maxHp;
     private SpriteRenderer myRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         myRenderer = GetComponent<SpriteRenderer>();
-        maxHp = 100;
         curHp = 100;
     }
 
