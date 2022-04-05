@@ -55,12 +55,12 @@ public class Missile : MonoBehaviour
     {
         if (!isStraight)
         {
-            if (target == null) //Å¸°ÙÀÌ ¾øÀ¸¸é »ý¼º Á÷ÈÄ ÆÄ±«
+            if (target == null) //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
             {
                 DestroyMissile();
                 SearchEnemy();
             }
-            else if (target.gameObject.activeSelf) //È°¼ºÈ­ »óÅÂÀÏ ¶§ (Å¥ ¹Û¿¡ ÀÖÀ» ¶§)
+            else if (target.gameObject.activeSelf) //È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (Å¥ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
             {
                 if(isBoostOn)
                 {
@@ -81,7 +81,7 @@ public class Missile : MonoBehaviour
                 isStraight = true;
             }
         }
-        else //Å¸°ÙÀÌ Å¥ ¾ÈÀ¸·Î µé¾î°¡¼­ ºñÈ°¼ºÈ­ µÇ¸é °ø°ÝÀ» Âß ÁøÇàÇÏ°í 3ÃÊ µÚ ReturnObj
+        else //Å¸ï¿½ï¿½ï¿½ï¿½ Å¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ 3ï¿½ï¿½ ï¿½ï¿½ ReturnObj
         {
             Debug.Log("straight");
             Straight();
@@ -127,7 +127,6 @@ public class Missile : MonoBehaviour
 
     public IEnumerator Boost()
     {
-        Debug.Log("ºÎ½ºÅÍ »ç¿ë °¡´É");
         isBoostOn = false;
         SearchEnemy();
         rigid.velocity = defaultDir * velocity;
